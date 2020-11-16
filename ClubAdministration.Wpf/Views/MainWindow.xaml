@@ -9,6 +9,26 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
         Title="Club Administration" Height="450" Width="291.053">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-  
+        <StackPanel Grid.Row="0" Margin="0 0 0 20">
+            <TextBlock>Section:</TextBlock>
+            <ComboBox Height="20" ItemsSource="{Binding Path=Sections}" SelectedItem="{Binding Path=SelectedSection}" DisplayMemberPath="Name" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Members}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedMember}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Lastname" Binding="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Firstname" Binding="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Sections" Binding="{Binding Path=CountSections, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="3" Command="{Binding CmdEditMember}" Content="{Binding Path=SelectedMember.FullName}" ContentStringFormat="{}{0} bearbeiten" />
+    </Grid>
 </controls:MetroWindow>
